@@ -1,0 +1,13 @@
+extends ../layout
+
+block content
+  h1= title 
+  
+  form(action=`/articles/update/${article.id}` method="POST")
+    div
+      label(for="title") Title
+      input(type="text" name="title" id="title" required value=article.title)
+    div
+      label(for="content") Content
+      textarea(name="content" id="content" required)= article.content
+    button(type="submit") Update

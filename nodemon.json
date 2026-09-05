@@ -1,0 +1,11 @@
+{
+  "watch": ["app.js", "bin/www", "routes/", "views/"],
+  "ext": "js,json,pug",
+  "ignore": ["node_modules/", "public/", "*.test.js"],
+  "env": {
+    "NODE_ENV": "development",
+    "PORT": "3000",
+    "DEBUG": "personal-blog:server"
+  },
+  "delay": 1000
+}

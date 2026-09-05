@@ -1,0 +1,40 @@
+extends ../layout
+
+block content
+  h1= title
+  ul
+    each item in articles
+      li
+        a(href=`/articles/${item.id}`)
+          h2= item.title
+          p
+            small Created: #{item.created_at}
+        
+        //- Direct navigation for edit
+        a(href=`/articles/edit/${item.id}`) Edit
+
+        //- Trigger delete via client-side script
+        button(type="button" onclick=`deleteArticle(${item.id})`) Delete
+
+  script.
+    async function deleteArticle(id) {
+      const confirmed = confirm('Are you sure you want to delete this article?');
+      if (!confirmed) return;
+
+      try {
+        const res = await fetch(`/articles/delete/${id}`, {
+          method: 'DELETE'
+        });
+
+        if (res.ok) {
+          alert('Article deleted successfully');
+          window.location.reload();
+        } else {
+          const errorData = await res.json();
+          alert(`Error deleting article: ${errorData.message}`);
+        }
+      } catch (error) {
+        console.error(error);
+        alert('Network error while deleting article');
+      }
+    }
